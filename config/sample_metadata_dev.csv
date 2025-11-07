@@ -1,0 +1,14 @@
+samid,fastq_file_1,fastq_file_2,bam_file,threep_adapter_seq,fivep_adapter_seq,condition,time,treatment
+########### V2 TEST SAMPLES
+#,SRR24007577,,,,,,,,,,,,,gs://cidc-dev2-scrnaseq-test-data/SRR24007577_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR24007577_2.fastq.gz,,,
+#,SRR24007579,,,,,,,,,,,,,gs://cidc-dev2-scrnaseq-test-data/SRR24007579_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR24007579_2.fastq.gz,,,
+#,SRR24007581,,,,,,,,,,,,,gs://cidc-dev2-scrnaseq-test-data/SRR24007581_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR24007581_2.fastq.gz,,,
+#,SRR24007583,,,,,,,,,,,,,gs://cidc-dev2-scrnaseq-test-data/SRR24007583_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR24007583_2.fastq.gz,,,
+#,SRR24007584,,,,,,,,,,,,,gs://cidc-dev2-scrnaseq-test-data/SRR24007584_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR24007584_2.fastq.gz,,,
+########### V3 TEST SAMPLES
+SRR17022240,gs://cidc-dev2-scrnaseq-test-data/SRR17022240_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR17022240_2.fastq.gz,,,,Normal,Pre-treatment,Placebo
+SRR17022241,gs://cidc-dev2-scrnaseq-test-data/SRR17022241_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR17022241_2.fastq.gz,,,,Tumor,Pre-treatment,DrugA
+SRR17022242,gs://cidc-dev2-scrnaseq-test-data/SRR17022242_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR17022242_2.fastq.gz,,,,Tumor,Pre-treatment,DrugA
+#SRR17022240,gs://cidc-dev2-scrnaseq-test-data/SRR17022240_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR17022240_2.fastq.gz,,,
+#SRR17022241,gs://cidc-dev2-scrnaseq-test-data/SRR17022241_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR17022241_2.fastq.gz,,,
+#SRR17022242,gs://cidc-dev2-scrnaseq-test-data/SRR17022242_1.fastq.gz,gs://cidc-dev2-scrnaseq-test-data/SRR17022242_2.fastq.gz,,,

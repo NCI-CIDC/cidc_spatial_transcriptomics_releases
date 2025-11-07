@@ -1,0 +1,176 @@
+## workflow set up
+# working output dir
+predir: '/media/storage/spatial_transcriptomics_output'
+# source dir for supporting scripts
+srcdir: '/home/pipeline/cidc_spatial_transcriptomics/source'
+# file to write running log
+log_file: '/media/storage/spatial_transcriptomics_output/pipeline.log'
+# number of CPU cores dedicated to entire workflow
+ncores: 60
+
+
+## output file paths layout file
+file_layout: 'config/file_layout.yaml'
+
+
+## reference genome download locations file
+reference: 'config/reference.csv'
+
+
+## sample metadata file
+sample_metadata: 'config/sample_metadata.csv'
+
+
+## preprocess options
+quality_trim: '20'
+
+
+## cloud program ['gcloud storage' or 'aws'] and bucket location
+cloud_prog: 'gcloud storage'
+archive_bucket: ''
+
+## Set the pipeline to run the 10X workflow or the STARsolo workflow:
+## "10x": The steps up to and including STARsolo will not be perfomed. The provided 10X directory in
+## the config.yaml will be used to generate the Seurat object.
+## Any option other than "10x" will follow the STARsolo workflow. The FASTQs or BAMs provided will
+## undergo  alignment with STARsolo. THe Seurat object will be generated from the output of STARsolo.
+workflow: 'star' #"10x"
+
+## The number of threads used should be dependent on the amount of memory for the machine type.
+## Refer to https://cloud.google.com/compute/docs/compute-optimized-machines to determine how much memory (GB) for each machine type.
+## To estimate the amount of threads for a process, use the example below as a guide for a process that requires 30 GB RAM.
+## If the machine type is c2-standard-60 with 60 vCPUs and 240 memory (GB), 7 samples can be run at the same time (7 samples * 30 GB = 210 GB). The run MUST use less than 240 GB, or it will crash.
+## Therefore, the thread option should be set to 8 as a minimum (7 samples * 8 threads = 56 threads total). Subsequently, there would not be enough threads to start a new alignment run with
+## 8 samples and go over the 240 GB memory limit.
+
+## Space Ranger thread ond memory options can be set exactly in the count command.
+## Set max cores Space Ranger may request at one time
+spaceranger_threads: 32
+## Set max GB Space Ranger may request at one time
+spaceranger_localmem: 128
+## Set max virtual address space in GB for Space Ranger
+spaceranger_localvmem: 154
+
+## Amount of threads to use for rule normalization.
+## HD sample: ~190 GB
+## Non-HD sample: ~20 GB
+normalization_threads: 60
+
+## Amount of threads to use for rule dimensionality_reduction.
+## HD sample: ~50 GB
+## Non-HD sample: ~4 GB
+dimensionality_reduction_threads: 15
+
+## Amount of threads to use for rule cell_cycle_scoring.
+## HD sample: ~25 GB
+## Non-HD sample: ~5 GB
+cell_cycle_scoring_threads: 7
+
+## Amount of threads to use for rule azimuth.
+## HD sample: ~85 GB
+## Non-HD sample: ~10 GB
+azimuth_threads: 30
+
+## Amount of threads to use for rule tabula_sapiens.
+## HD sample: 125 GB
+## Non-HD sample: 60 GB
+ts_threads: 60
+
+## Amount of threads to use for rule create_custom_ref.
+## Generating the custom reference is a memory intensive process. It can use up to ~105 GB of RAM.
+## It is recommended to prevent other processes from running at the same time by setting the cores to the max amount available.
+custom_ref_threads: 60
+
+## Amount of threads to use for rule custom.
+## HD sample: ~105 GB
+## Non-HD sample: ~40 GB
+custom_threads: 30
+
+## Amount of threads to use for rule clustering
+## HD sample: ~35 GB
+## Non-HD sample: 5 GB
+clustering_threads: 9
+
+## Amount of threads to use for rule spatial_variable_features
+## HD sample: ~50 GB
+## Non-HD samples: ~15 GB
+spatial_variable_features_threads: 15
+
+## Amount of threads to use for rule render_report
+## HD sample: ~40 GB
+## Non-HD sample: 5 GB
+report_threads: 12
+
+## Amount of threads to use for rule merge.
+## It is recommended to allocate all cores to this process.
+merge_threads: 112
+
+qc:
+    ## Defines the bin size (2, 8, or 16) to use for generating the Seurat object from a Visium HD sample
+    bin_size: 8
+
+filter:
+    ## Remove HLA and immunoglobin genes (IGH, IGK, IGL) from Seurat object
+    hla_ig: "FALSE"
+    ## Remove mitochondrial genes from Seurat object
+    mt: "FALSE"
+    ## Remove ribosomal genes from Seurat object
+    rb: "FALSE"
+    ## Remove hemoglobin genes from Seurat ojbect
+    hb: "FALSE"
+    ## Minimum total number of transcript counts detected in each spatial spot. Spots below this minimum
+    ## will be filtered out.
+    ncount_min: 5
+    ## Minimum number of unique genes detected in each spatial spot or pixel. Spots below this minimum
+    ## will be filtered out.
+    nfeature_min: 100
+
+## TODO: Test runs were performed when SCTransform is TRUE. Test runs need to be performed with
+## using LogNormalize(). Imputation would also need to be tested.
+normalization:
+    ## Perform SCTransform() instead of NormalizeData(), FindVariableFeatures(), and ScaleData()
+    sctransform: "TRUE"
+    ## Perform RunALRA() to impute missing values by using low-rank approximation
+    imputation: "FALSE"
+    ## nfeatures in FindVariableFeatures(): Number of features to select as top variable features;
+    ## only used when selection.method is set to 'dispersion' or 'vst'
+    nfeatures: 2000
+
+cell_cycle_scoring:
+    ## Perform cell cycle scoring with CellCycleScoring function.
+    ## The gene list is from cc.genes.updated.2019 in Seurat (https://satijalab.org/seurat/reference/cc.genes.updated.2019)
+    cell_cycle_score: "TRUE"
+
+cell_type_annotation:
+    ## Annotate the sample with Azimuth
+    azimuth: "TRUE"
+    ## Azimuth reference type. Options are listed below.
+    ## adiposeref bonemarrowref fetusref
+    ## heartref humancortexref kidneyref
+    ## lungref mousecortexref pancreasref
+    ## pbmcref tonsilref
+    azimuth_ref: "kidneyref"
+    ## Annotation levels for the Azimuth reference. List all the annotation levels associated
+    ## with the reference type. Refer to https://azimuth.hubmapconsortium.org/references/
+    ## for the specific annotation levels reference type.
+    azimuth_lvl: "annotation.l1, annotation.l2, annotation.l3"
+
+    ## Annotate the sample with the Tabula Sapiens reference
+    ts: "TRUE"
+    ## Annotation categories for Tabula Sapiens
+    ts_lvl: "cell_ontology_class, free_annotation"
+    ## GCP URI for Tabula Sapiens reference. Reference options are located in the GCP
+    ## bucket gs://cidc-dev2-scrnaseq-reference-v1/Tabula_Sapiens_CellType_References
+    ts_ref: "gs://cidc-dev2-scrnaseq-reference-v1/Tabula_Sapiens_CellType_References/reference_SCT_TS_prostate.rds"
+    #"gs://cidc-dev2-scrnaseq-reference-v1/Tabula_Sapiens_CellType_References/reference_SCT_TS_blood.rds"
+    #"gs://cidc-dev2-scrnaseq-reference-v1/Tabula_Sapiens_CellType_References/reference_SCT_TS_immune.rds"
+    ## k.anchor in FindTransferAnchors(): How many neighbors (k) to use when finding anchors. Default is 5
+    ts_k_anchor: 5
+
+    ## TODO: Add custom_k_anchor setting support for custom references similar to the implementation for Tabula Sapiens
+    ## Annotate the sample with a custom reference
+    custom: "FALSE"
+    ## GCP URI for the custom reference
+    custom_ref: "gs://cidc-dev2-scrnaseq-reference-v1/Custom_CellType_References/TEST_reference_SCT_TS_Bone_Marrow.rds"
+    custom_counts: "gs://cidc-dev2-scrnaseq-reference-v1/custom_celltype_reference/counts.csv"
+    custom_metadata: "gs://cidc-dev2-scrnaseq-reference-v1/custom_celltype_reference/metadata.csv"

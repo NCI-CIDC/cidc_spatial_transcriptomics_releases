@@ -1,0 +1,112 @@
+## INITIALIZE
+ref_files:
+    fa: "refdata-gex-GRCh38-2020-A/fasta/genome.fa"
+    fai: "refdata-gex-GRCh38-2020-A/fasta/genome.fa.fai"
+    gtf: "refdata-gex-GRCh38-2020-A/genes/genes.gtf"
+    refdata: "refdata-gex-GRCh38-2020-A"
+    probe_v1: "Visium_Human_Transcriptome_Probe_Set_v1.0_GRCh38-2020-A.csv"
+    probe_v2: "Visium_Human_Transcriptome_Probe_Set_v2.0_GRCh38-2020-A.csv"
+    sr_tar: "spaceranger-3.1.3.tar.gz"
+    custom_txt: "custom_annot.txt"
+    custom_ref: "custom_reference.rds"
+    
+## INGEST
+input:
+    fastqs_dir: "{sample}_inputs/{sample}/"
+    cytaimage: "{sample}_inputs/{sample}_cytaimage.txt"
+    image: "{sample}_inputs/{sample}_image.txt"
+    darkimage: "{sample}_inputs/{sample}_darkimage.txt"
+    colorizedimage: "{sample}_inputs/{sample}_colorizedimage.txt"
+    loupe_json: "{sample}_inputs/{sample}_loupe_alignment.json"
+    sample_param: "{sample}_inputs/{sample}_sample_param.txt"
+
+## MAPPING
+spaceranger:
+    txt: "{sample}_spaceranger_complete.txt"
+    outs: "{sample}/outs/"
+    html: "{sample}/outs/web_summary.html"
+    bam: "{sample}/outs/possorted_genome_bam.bam"
+    bai: "{sample}/outs/possorted_genome_bam.bam.bai"
+
+rseqc:
+    bamqc_txt: "{sample}_bam_qc.txt"
+    bamgc_txt: "{sample}_bam_gc.txt"
+    bamgc_r: "{sample}.GC_plot.r"
+
+fastqc:
+    targz: "{sample}.Aligned.sortedByCoord.out_fastqc.tar.gz"
+
+qc:
+    csv: "additional_metadata.csv"
+    rds: "{sample}.rds"
+    plot: "{sample}_qc.png"
+    nfeature: "{sample}_nfeature.png"
+    ncount: "{sample}_ncount.png"
+    mt: "{sample}_mt.png"
+    hb: "{sample}_hb.png"
+    rb: "{sample}_rb.png"
+    nspot: "{sample}_nspot.txt"
+    rds_qc: "{sample}_qc.rds"
+
+filter:
+    plot: "{sample}_filtered.png"
+    nfeature: "{sample}_nfeature_filtered.png"
+    ncount: "{sample}_ncount_filtered.png"
+    mt: "{sample}_mt_filtered.png"
+    hb: "{sample}_hb_filtered.png"
+    rb: "{sample}_rb_filtered.png"
+    nspot: "{sample}_nspot_filtered.txt"
+    rds: "{sample}_filtered.rds"
+
+normalization:
+    rds: "{sample}_normalization.rds"
+    plot: "{sample}_variable_feature_plot.png"
+
+dimensionality_reduction:
+    pca: "{sample}_pca.png"
+    vizdim: "{sample}_vizdimloadings.png"
+    heatmap: "{sample}_heatmap.png"
+    elbow: "{sample}_elbow.png"
+    rds: "{sample}_dimensionality_reduction.rds"
+
+cell_cycle_scoring:
+    rds: "{sample}_cell_cycle_scoring.rds"
+
+cell_type_annotation:
+    txt_azimuth: "azimuth/{sample}_azimuth.txt"
+    rds_azimuth: "azimuth/{sample}_azimuth.rds"
+    txt_ts: "tabula_sapiens/{sample}_tabula_sapiens.txt"
+    rds_ts: "tabula_sapiens/{sample}_tabula_sapiens.rds"
+    txt_custom: "custom/{sample}_custom.txt"
+    rds_custom: "custom/{sample}_custom.rds"
+
+clustering:
+    umap: "{sample}_umap_spatial_clustering.png"
+    individual: "{sample}_individual_spatial_clustering.png"
+    rds: "{sample}_clustering.rds"
+
+spatial_variable_features:
+    csv: "{sample}_spatial_variable_features.csv"
+    png: "{sample}_spatial_variable_features_plot.png"
+    rds: "{sample}_spatial_variable_features.rds"
+
+merge:
+    rds: "merged.rds"
+
+report:
+    qc: "{sample}_qc_plot.png"
+    heatmap: "{sample}_heatmap_plot.png"
+    azimuth_a: "{sample}_azimuth_dimplot_a.png"
+    azimuth_aa: "{sample}_azimuth_spatial_dimplot_a.png"
+    azimuth_b: "{sample}_azimuth_dimplot_b.png"
+    azimuth_bb: "{sample}_azimuth_spatial_dimplot_b.png"
+    ts_a: "{sample}_ts_dimplot_a.png"
+    ts_aa: "{sample}_ts_spatial_dimplot_a.png"
+    ts_b: "{sample}_ts_dimplot_b.png"
+    ts_bb: "{sample}_ts_spatial_dimplot_b.png"
+    custom_a: "{sample}_custom_dimplot_a.png"
+    custom_aa: "{sample}_custom_spatial_dimplot_a.png"
+    custom_b: "{sample}_custom_dimplot_b.png"
+    custom_bb: "{sample}_custom_spatial_dimplot_b.png"
+    r: "{sample}_report.R"
+    html: "{sample}_report.html"

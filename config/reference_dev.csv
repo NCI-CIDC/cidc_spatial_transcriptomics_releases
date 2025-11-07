@@ -1,0 +1,10 @@
+﻿ref_file_name,google_bucket_URI,original_URL
+genome_fa,gs://cidc-dev2-scrnaseq-reference-v1/genome.fa,https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz
+genome_fai,gs://cidc-dev2-scrnaseq-reference-v1/genome.fa.fai,https://cf.10xgenomics.com/supp/celli-exp/refdata-gex-GRCh38-2024-A.tar.gz
+genome_gtf,gs://cidc-dev2-scrnaseq-reference-v1/genes.gtf.gz,https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz
+genome_star_index,gs://cidc-dev2-scrnaseq-reference-v1/star_index,gs://cidc-scrnaseq-reference-v1/star_index_README.txt
+barcode_v2,gs://cidc-dev2-scrnaseq-reference-v1/barcode_whitelist/737K-august-2016.txt,cellranger-8.0.1/lib/python/cellranger/barcodes/737K-august-2016.txt
+barcode_v3,gs://cidc-dev2-scrnaseq-reference-v1/barcode_whitelist/3M-february-2018.txt,cellranger-8.0.1/lib/python/cellranger/barcodes/3M-february-2018.txt.gz
+barcode_v4,gs://cidc-dev2-scrnaseq-reference-v1/barcode_whitelist/3M-3pgex-may-2023.txt,cellranger-8.0.1/lib/python/cellranger/barcodes/3M-3pgex-may-2023.txt.gz
+conservation,gs://cidc-atac-reference-v1/hg38.phastCons100way.bw,http://hgdownload.cse.ucsc.edu/goldenpath/hg38/phastCons100way/hg38.phastCons100way.bw
+centrifuge,gs://cidc-atac-reference-v1/p_compressed+h+v.tar.gz,https://genome-idx.s3.amazonaws.com/centrifuge/p_compressed%2Bh%2Bv.tar.gz
